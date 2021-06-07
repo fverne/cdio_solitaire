@@ -18,6 +18,8 @@ from PIL import Image
 from io import BytesIO
 import torch
 
+from convert import json_to_solitaire
+
 app = FastAPI()
 
 @app.get("/")
@@ -85,15 +87,6 @@ def results_to_json(results, model):
         ]
         for result in results.xyxyn
     ]
-
-
-def json_to_solitaire(json_results):
-    solitaire_board = list
-
-    for card in json_results:
-        solitaire_board.append(json_results[card])
-
-    return solitaire_board
 
 
 @app.post("/")
