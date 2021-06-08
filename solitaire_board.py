@@ -8,10 +8,10 @@ class SolitaireBoard:
         self.right = list()
 
     def addcard(self, pos, card):
-        if pos == 1:
+        if pos == "left":
             self.left = card
-        if pos == 2:
+        if pos == "right":
             self.right.append(card)
-        if pos == 3:
+        if pos == "bottom":
             self.bottom.append(card)
 
