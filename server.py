@@ -18,7 +18,8 @@ from PIL import Image
 from io import BytesIO
 import torch
 
-from convert import json_to_solitaire
+from convert import json_to_solitaire, initializegame
+from preprocess import checkcardsoverflow
 
 app = FastAPI()
 
@@ -36,8 +37,8 @@ def home(request: Request):
     <div>
       <label>Select YOLO Model</label>
       <select name="model_name">
-        <option>yolov5s</option>
         <option>yolov5s6</option>
+        <option>yolov5m6</option>
       </select>
     </div>
   </div>
@@ -62,8 +63,8 @@ def home(request: Request):
     <div>
       <label>Select YOLO Model</label>
       <select name="model_name">
-        <option>yolov5s</option>
         <option>yolov5s6</option>
+        <option>yolov5m6</option>
       </select>
     </div>
   </div>
@@ -118,6 +119,13 @@ async def process_home_form(file: UploadFile = File(...),
 
     results = model(Image.open(BytesIO(await file.read())))
     json_results = results_to_json(results, model)
+
+    # Checks if 3 instances of a card appears
+    if not checkcardsoverflow(json_results):
+        return False
+
+    initializegame(json_results)
+
     solitaire_results = json_to_solitaire(json_results)
     return solitaire_results
 

@@ -1,6 +1,11 @@
 
-#SolitaireCard class, keeps information about a single card
+# SolitaireCard class, keeps information about a single card
 class SolitaireCard:
+    classid = int
+    classname = str
+    bb = list()
+    confidence = float
+
     def __init__(self, classid: int, classname: str, bb: list, confidence: float):
         self.classid = classid
         self.classname = classname
