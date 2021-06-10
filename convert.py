@@ -22,8 +22,8 @@ def json_to_solitaire(json_results):
     return board
 
 
-# starts the game with a given gameid, and keeps the state.
-def initializegame(json_results):
+# starts the game with a given uid, and keeps the state.
+def initializegame(json_results, uid):
     print("start")
 
     templist = list()
@@ -62,20 +62,18 @@ def initializegame(json_results):
     prunedtemplist.remove(topcard)
 
     # adds the cards to the bottom lists
-    # TODO: ????????
-    leftmostcard = None
-    tempbb = 0.0
-    i = 0
-    for obj in prunedtemplist:
-        if obj.bb[1] > tempbb:
-            leftmostcard = obj
-            tempbb = obj.bb[1]
-            board.addcardbottom(leftmostcard, i)
-            i = i + 1
+    leftmostcard = SolitaireCard
+    tempbb = 1.0
+    for i in range(0, 7):
+        for obj in prunedtemplist:
+            if tempbb > obj.bb[1]:
+                leftmostcard = obj
+                tempbb = obj.bb[1]
+        tempbb = 1.0
+        board.addcardbottom(leftmostcard, i)
+        print(leftmostcard.classname)
+        prunedtemplist.remove(leftmostcard)
 
-    print(leftmostcard.classname)
-
+    # check if there are cards left in the list after extracting - there should be 7 max!
     if len(prunedtemplist) > 0:
         print("more cards left after init finished! Something is wrong!")
-
-    # find .bottom lefternmost card, progress through and save each cards y axis as the row.
