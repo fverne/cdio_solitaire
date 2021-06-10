@@ -3,7 +3,7 @@
 class SolitaireCard:
     classid = int
     classname = str
-    bb = list()
+    bb = list
     confidence = float
 
     def __init__(self, classid: int, classname: str, bb: list, confidence: float):

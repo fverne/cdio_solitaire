@@ -124,7 +124,7 @@ async def process_home_form(file: UploadFile = File(...),
     if not checkcardsoverflow(json_results):
         return False
 
-    initializegame(json_results)
+    initializegame(json_results, "abcd1234")
 
     solitaire_results = json_to_solitaire(json_results)
     return solitaire_results
