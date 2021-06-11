@@ -18,7 +18,7 @@ from PIL import Image
 from io import BytesIO
 import torch
 
-from convert import json_to_solitaire, initializegame
+from convert import json_to_solitaire, getboard
 from preprocess import checkcardsoverflow
 
 app = FastAPI()
@@ -124,7 +124,7 @@ async def process_home_form(file: UploadFile = File(...),
     if not checkcardsoverflow(json_results):
         return False
 
-    initializegame(json_results)
+    getboard(json_results)
 
     solitaire_results = json_to_solitaire(json_results)
     return solitaire_results

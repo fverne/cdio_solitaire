@@ -1,3 +1,5 @@
+from cardnormalizer import cardnormalizer
+from duplicateremover import duplicateremover
 from solitaire_board import SolitaireBoard
 from solitaire_card import SolitaireCard
 
@@ -23,38 +25,25 @@ def json_to_solitaire(json_results):
 
 
 # starts the game with a given uid, and keeps the state.
-def initializegame(json_results, uid):
+def getboard(json_results):
     print("start")
 
-    templist = list()
     board = SolitaireBoard()
 
-    # add the cards as objects to a temporary list
-    for deck in json_results:
-        for card in deck:
-            templist.append(SolitaireCard(card['class'], card['class_name'], card['normalized_box'],
-                                           card['confidence']))
+    # Remove all duplicate predictions, ensuring only the top left prediction of a card exists.
+    # (and thereby removes the bottom right one)
+    prunedtemplist = duplicateremover(json_results)
 
-    # gets rid of duplicate entries, as these dont matter for the initial game state
-    prunedtemplist = dict()
-    for obj in templist:
-        # add objects to temporary list if they dont exist
-        if obj.classid not in prunedtemplist:
-            prunedtemplist[obj.classid] = obj
-        # if they do, and they are the "lowest" of the two bounding boxes, override its place with the highest one.
-        elif prunedtemplist[obj.classid].bb[2] < obj.bb[2]:
-            prunedtemplist[obj.classid] = obj
-
-    # convert the dict to a list
-    prunedtemplist = list(prunedtemplist.values())
+    # Normalize the position of the cards given the bounds of all cards location according to the boards bb.
+    prunedtemplist = cardnormalizer(prunedtemplist)
 
     # finds the card in the top-left corner
     topcard = None
     tempbb = 0.0
     for obj in prunedtemplist:
-        if obj.bb[2] > tempbb:
+        if obj.bb[3] > tempbb:
             topcard = obj
-            tempbb = obj.bb[2]
+            tempbb = obj.bb[3]
 
     print("topcard " + topcard.classname)
     # adds the card to the top-left border in the board object
