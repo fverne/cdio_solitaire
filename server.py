@@ -124,10 +124,7 @@ async def process_home_form(file: UploadFile = File(...),
     if not checkcardsoverflow(json_results):
         return False
 
-    getboard(json_results)
-
-    solitaire_results = json_to_solitaire(json_results)
-    return solitaire_results
+    return getboard(json_results)
 
 
 if __name__ == '__main__':

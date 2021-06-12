@@ -1,3 +1,4 @@
+from boardfiller import boardfiller
 from cardnormalizer import cardnormalizer
 from duplicateremover import duplicateremover
 from solitaire_board import SolitaireBoard
@@ -24,7 +25,7 @@ def json_to_solitaire(json_results):
     return board
 
 
-# starts the game with a given uid, and keeps the state.
+# gets a SolitaireBoard DTO, which is a way to display the location of the cards on the board.
 def getboard(json_results):
     print("start")
 
@@ -37,32 +38,11 @@ def getboard(json_results):
     # Normalize the position of the cards given the bounds of all cards location according to the boards bb.
     prunedtemplist = cardnormalizer(prunedtemplist)
 
-    # finds the card in the top-left corner
-    topcard = None
-    tempbb = 0.0
-    for obj in prunedtemplist:
-        if obj.bb[3] > tempbb:
-            topcard = obj
-            tempbb = obj.bb[3]
+    # Fills up the board with the given list of cards, at the correct locations.
+    board = boardfiller(board, prunedtemplist)
 
-    print("topcard " + topcard.classname)
-    # adds the card to the top-left border in the board object
-    board.addcardleft(topcard)
-    prunedtemplist.remove(topcard)
-
-    # adds the cards to the bottom lists
-    leftmostcard = SolitaireCard
-    tempbb = 1.0
-    for i in range(0, 7):
-        for obj in prunedtemplist:
-            if tempbb > obj.bb[1]:
-                leftmostcard = obj
-                tempbb = obj.bb[1]
-        tempbb = 1.0
-        board.addcardbottom(leftmostcard, i)
-        print(leftmostcard.classname)
-        prunedtemplist.remove(leftmostcard)
+    return board
 
     # check if there are cards left in the list after extracting - there should be 7 max!
-    if len(prunedtemplist) > 0:
-        print("more cards left after init finished! Something is wrong!")
+    # if len(prunedtemplist) > 0:
+    #     print("more cards left after init finished! Something is wrong!")
