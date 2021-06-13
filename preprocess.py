@@ -13,7 +13,6 @@ def checkcardsoverflow(json_results):
             else:
                 cardsondeck[card['class']] = list()
                 cardsondeck[card['class']].append(card['class'])
-                print(card['class_name'] + " , " + str(card['confidence']))
 
     return True
 

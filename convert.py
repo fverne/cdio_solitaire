@@ -2,27 +2,6 @@ from boardfiller import boardfiller
 from cardnormalizer import cardnormalizer
 from duplicateremover import duplicateremover
 from solitaire_board import SolitaireBoard
-from solitaire_card import SolitaireCard
-
-
-# class which will convert a json object to another json object, used by the backend
-def json_to_solitaire(json_results):
-    board = SolitaireBoard()
-
-    for deck in json_results:
-        for card in deck:
-            if board.left:
-                board.addcardleft(SolitaireCard(card['class'], card['class_name'], card['normalized_box'],
-                                           card['confidence']))
-
-            if len(board.right) < 4:
-                board.addcardright(SolitaireCard(card['class'], card['class_name'], card['normalized_box'],
-                                            card['confidence']), 1)
-
-            board.addcardbottom(SolitaireCard(card['class'], card['class_name'], card['normalized_box'],
-                                            card['confidence']), 1)
-
-    return board
 
 
 # gets a SolitaireBoard DTO, which is a way to display the location of the cards on the board.

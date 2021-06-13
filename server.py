@@ -18,7 +18,7 @@ from PIL import Image
 from io import BytesIO
 import torch
 
-from convert import json_to_solitaire, getboard
+from convert import getboard
 from preprocess import checkcardsoverflow
 
 app = FastAPI()
@@ -131,4 +131,4 @@ if __name__ == '__main__':
     import uvicorn
 
     app_str = 'server:app'
-    uvicorn.run(app_str, host='localhost', port=8000, reload=True, workers=1)
+    uvicorn.run(app_str, host='localhost', port=8000, reload=False, workers=1)

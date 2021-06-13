@@ -15,7 +15,6 @@ def findboardbounds(prunedtemplist):
     boardbounds = list()
     x1, y1, x2, y2 = 1.0, 1.0, 0.0, 0.0
     for obj in prunedtemplist:
-        print(obj)
         if obj.bb[0] < x1:
             x1 = obj.bb[0]
         if obj.bb[1] < y1:
@@ -40,8 +39,8 @@ def normalizecards(prunedtemplist, boardbounds):
 
     for obj in prunedtemplist:
         obj.bb[0] = normalizevalue(obj.bb[0], boardbounds[0], boardbounds[2])
-        obj.bb[2] = normalizevalue(obj.bb[2], boardbounds[0], boardbounds[2])
         obj.bb[1] = normalizevalue(obj.bb[1], boardbounds[1], boardbounds[3])
+        obj.bb[2] = normalizevalue(obj.bb[2], boardbounds[0], boardbounds[2])
         obj.bb[3] = normalizevalue(obj.bb[3], boardbounds[1], boardbounds[3])
 
     return prunedtemplist

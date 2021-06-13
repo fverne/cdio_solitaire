@@ -26,7 +26,7 @@ def boardfiller(board: SolitaireBoard, prunedtemplist):
                 # print("added " + card.classname + " to right 0.")
 
         # Bottom Cards
-        if card.bb[1] > 0.2:
+        elif card.bb[1] > 0.2:
             if card.bb[0] > 0.92:
                 board.addcardbottom(card, 6)
                 # print("added " + card.classname + " to bottom 6.")
