@@ -1,6 +1,6 @@
 
 # check if three instances of a card appears (max 2 should be allowed
-def checkcardsoverflow(json_results):
+def preprocess(json_results):
     cardsondeck = [0 for _ in range(52)]
 
     for deck in json_results:

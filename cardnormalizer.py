@@ -34,6 +34,8 @@ def findboardbounds(prunedtemplist):
 
 # Normalizes the cards given the bounds for the board found above.
 def normalizecards(prunedtemplist, boardbounds):
+
+    # Method for normalizing
     def normalizevalue(val, min1, max1):
         return (val - min1) / (max1 - min1)
 

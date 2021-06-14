@@ -1,4 +1,4 @@
-from solitaire_card import SolitaireCard
+from solitairecardDTO import SolitaireCardDTO
 
 
 def duplicateremover(json_results):
@@ -7,8 +7,8 @@ def duplicateremover(json_results):
     # add the cards as objects to a temporary list
     for deck in json_results:
         for card in deck:
-            templist.append(SolitaireCard(card['class'], card['class_name'], card['normalized_box'],
-                                           card['confidence']))
+            templist.append(SolitaireCardDTO(card['class'], card['class_name'], card['normalized_box'],
+                                             card['confidence']))
 
     # gets rid of duplicate entries, as these dont matter for the initial game state
     prunedtemplist = dict()

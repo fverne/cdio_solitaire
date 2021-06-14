@@ -1,14 +1,14 @@
 from boardfiller import boardfiller
 from cardnormalizer import cardnormalizer
 from duplicateremover import duplicateremover
-from solitaire_board import SolitaireBoard
+from solitaireboardDTO import SolitaireBoardDTO
 
 
 # gets a SolitaireBoard DTO, which is a way to display the location of the cards on the board.
-def getboard(json_results):
+def getboardDTO(json_results):
     print("start")
 
-    board = SolitaireBoard()
+    board = SolitaireBoardDTO()
 
     # Remove all duplicate predictions, ensuring only the top left prediction of a card exists.
     # (and thereby removes the bottom right one)

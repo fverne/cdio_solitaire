@@ -1,10 +1,10 @@
-from solitaire_card import SolitaireCard
+from solitairecardDTO import SolitaireCardDTO
 
 
 # SolitaireBoard, keeps information about the state of the board
-class SolitaireBoard:
+class SolitaireBoardDTO:
     def __init__(self):
-        self.left = SolitaireCard
+        self.left = SolitaireCardDTO
         self.right = list()
         for i in range(0, 4):
             self.right.append(None)

@@ -1,8 +1,8 @@
 # Takes a list of normalized cards and assigns them to a board DTO.
-from solitaire_board import SolitaireBoard
+from solitaireboardDTO import SolitaireBoardDTO
 
 
-def boardfiller(board: SolitaireBoard, prunedtemplist):
+def boardfiller(board: SolitaireBoardDTO, prunedtemplist):
     for card in prunedtemplist:
         # Top cards
         if card.bb[1] <= 0.20:
