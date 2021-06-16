@@ -5,7 +5,7 @@ import json
 from pprint import pprint
 
 
-def send_request(image='images/3init1.jpg', model_name='yolov5m6'):
+def send_request(image='images/3init1.jpg', model_name='yolov5s6'):
     files = {'file': open(image, "rb")}  # pass the files here
 
     # pass the other form data here
