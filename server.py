@@ -1,3 +1,6 @@
+import base64
+import io
+
 from fastapi import FastAPI, Request, Form, File, UploadFile
 from fastapi.responses import HTMLResponse
 
@@ -53,13 +56,13 @@ def home(request: Request):
 
     return HTMLResponse(content=html_content, status_code=200)
 
-# Takes image file, returns SolitaireBoard DTO
-@app.post("/")
-async def processrequest(file: UploadFile = File(...),
-                         model_name: str = Form(...)):
 
-    model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_name + '.pt')
-    results = model(Image.open(BytesIO(await file.read())))
+# Takes b64 encoded image file (param name 'file'), returns SolitaireBoard DTO
+@app.post("/")
+async def processrequest(image: str = Form(...)):
+
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path='yolov5m6.pt')
+    results = model(Image.open(io.BytesIO(base64.b64decode(image))))
     json_results = modelresults(results, model)
 
     # Checks if 3 instances of a card appears, which should never happen

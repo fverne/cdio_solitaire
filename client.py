@@ -1,19 +1,22 @@
 # Example client. Won't be used in the final product.
+import base64
 
 import requests as r
 import json
 from pprint import pprint
 
 
-def send_request(image='images/3init1.jpg', model_name='yolov5s6'):
-    files = {'file': open(image, "rb")}  # pass the files here
+def send_request(image='images/3init1.jpg'):
+    files = open(image, "rb")  # pass the files here
 
-    # pass the other form data here
-    other_form_data = {'model_name': model_name}
+    # Convert to base64
+    imgBytes = bytes(files.read())
+    b64imgBytes = base64.b64encode(imgBytes)
+
+    jsonPreData = {'image': b64imgBytes}
 
     res = r.post("http://localhost:8000/",
-                 data=other_form_data,
-                 files=files)
+                 data=jsonPreData)
 
     pprint(json.loads(res.text))
 
