@@ -8,8 +8,22 @@ from fastapi.responses import HTMLResponse
 
 from convert import getboardDTO
 from preprocess import preprocess
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost",
+        "http://localhost:8000",
+        "http://localhost:8080",
+        "http://localhost:8082",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # Converts the results from the model to a JSON, which we will convert to a DTO later.
