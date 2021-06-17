@@ -13,10 +13,10 @@ def send_request(image='images/3init1.jpg'):
     imgBytes = bytes(files.read())
     b64imgBytes = base64.b64encode(imgBytes)
 
-    jsonPreData = {'image': b64imgBytes}
+    apiData = {'image': b64imgBytes}
 
     res = r.post("http://localhost:8000/",
-                 data=jsonPreData)
+                 data=apiData)
 
     pprint(json.loads(res.text))
 

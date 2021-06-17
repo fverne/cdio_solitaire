@@ -1,12 +1,10 @@
 import base64
 import io
 
-from fastapi import FastAPI, Request, Form, File, UploadFile
-from fastapi.responses import HTMLResponse
-
-from PIL import Image
-from io import BytesIO
 import torch
+from PIL import Image
+from fastapi import FastAPI, Request, Form
+from fastapi.responses import HTMLResponse
 
 from convert import getboardDTO
 from preprocess import preprocess
@@ -61,8 +59,13 @@ def home(request: Request):
 @app.post("/")
 async def processrequest(image: str = Form(...)):
 
+    # Loads the yolov5 model
     model = torch.hub.load('ultralytics/yolov5', 'custom', path='yolov5m6.pt')
+
+    # runs the model on the image
     results = model(Image.open(io.BytesIO(base64.b64decode(image))))
+
+    # Saves the results
     json_results = modelresults(results, model)
 
     # Checks if 3 instances of a card appears, which should never happen
