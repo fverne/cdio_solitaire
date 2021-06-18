@@ -10,13 +10,14 @@ def send_request(image='images/3init1.jpg'):
     files = open(image, "rb")  # pass the files here
 
     # Convert to base64
-    imgBytes = bytes(files.read())
-    b64imgBytes = base64.b64encode(imgBytes)
+    imgBytes = files.read()
+    b64imgBytes = base64.b64encode(imgBytes).decode()
+    print(b64imgBytes)
 
     apiData = {'image': b64imgBytes}
 
     res = r.post("http://localhost:8000/",
-                 data=apiData)
+                 json=apiData)
 
     pprint(json.loads(res.text))
 

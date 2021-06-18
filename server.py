@@ -5,6 +5,7 @@ import torch
 from PIL import Image
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
+from pydantic import BaseModel
 
 from convert import getboardDTO
 from preprocess import preprocess
@@ -69,15 +70,29 @@ def home(request: Request):
     return HTMLResponse(content=html_content, status_code=200)
 
 
+class ImageModel(BaseModel):
+    image: str
+
+
 # Takes b64 encoded image file (param name 'file'), returns SolitaireBoard DTO
 @app.post("/")
-async def processrequest(image: str = Form(...)):
+async def processrequest(image: ImageModel):
 
     # Loads the yolov5 model
     model = torch.hub.load('ultralytics/yolov5', 'custom', path='yolov5m6.pt')
 
+    # imageconverted = json.loads(image.image)
+    print(image.image)
+
+
     # runs the model on the image
-    results = model(Image.open(io.BytesIO(base64.b64decode(image))))
+    decodedtest = base64.b64decode(image.image)
+    iostream = io.BytesIO(decodedtest)
+    imageopener = Image.open(iostream)
+    results = model(imageopener)
+
+    # runs the model on the image
+    # results = model(Image.open(io.BytesIO(base64.b64decode(image))))
 
     # Saves the results
     json_results = modelresults(results, model)
