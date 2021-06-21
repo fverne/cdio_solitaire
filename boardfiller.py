@@ -1,3 +1,6 @@
+# Group 1 - CDIO Project, 21-06-21
+
+
 # Takes a list of normalized cards and assigns them to a board DTO.
 from solitaireboardDTO import SolitaireBoardDTO
 

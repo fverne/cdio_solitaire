@@ -1,3 +1,4 @@
+# Group 1 - CDIO Project, 21-06-21
 
 # SolitaireCard class, keeps information about a single card
 class SolitaireCardDTO:

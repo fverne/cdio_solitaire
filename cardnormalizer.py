@@ -1,3 +1,5 @@
+# Group 1 - CDIO Project, 21-06-21
+
 # this method will map the bounding box of the cards to a new one,
 # namely the one dictated by the bounding box of the cards.
 # This ensures better predictions regardless of how zoomed or panned the camera is on the cards.

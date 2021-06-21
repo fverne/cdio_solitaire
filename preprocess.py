@@ -1,3 +1,4 @@
+# Group 1 - CDIO Project, 21-06-21
 
 # check if three instances of a card appears (max 2 should be allowed
 def preprocess(json_results):

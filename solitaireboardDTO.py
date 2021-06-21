@@ -1,3 +1,5 @@
+# Group 1 - CDIO Project, 21-06-21
+
 from solitairecardDTO import SolitaireCardDTO
 
 

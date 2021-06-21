@@ -1,3 +1,5 @@
+# Group 1 - CDIO Project, 21-06-21
+
 # Example client. Won't be used in the final product.
 import base64
 
@@ -12,7 +14,6 @@ def send_request(image='images/3init1.jpg'):
     # Convert to base64
     imgBytes = files.read()
     b64imgBytes = base64.b64encode(imgBytes).decode()
-    print(b64imgBytes)
 
     apiData = {'image': b64imgBytes}
 

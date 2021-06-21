@@ -1,3 +1,5 @@
+# Group 1 - CDIO Project, 21-06-21
+
 import base64
 import io
 
@@ -81,18 +83,11 @@ async def processrequest(image: ImageModel):
     # Loads the yolov5 model
     model = torch.hub.load('ultralytics/yolov5', 'custom', path='yolov5m6.pt')
 
-    # imageconverted = json.loads(image.image)
-    print(image.image)
-
-
     # runs the model on the image
     decodedtest = base64.b64decode(image.image)
     iostream = io.BytesIO(decodedtest)
     imageopener = Image.open(iostream)
     results = model(imageopener)
-
-    # runs the model on the image
-    # results = model(Image.open(io.BytesIO(base64.b64decode(image))))
 
     # Saves the results
     json_results = modelresults(results, model)
